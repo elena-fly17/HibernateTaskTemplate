@@ -20,7 +20,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 "lastName varchar(45) not null, " +
                 "age tinyint not null, " +
                 "primary key(id))";
-        Connection con = Util.dbOpenConnection();
+        Connection con = Util.dbOpenConnectionJDBC();
 
         try {
             Statement st = con.createStatement();
@@ -28,13 +28,13 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            Util.dbCloseConnection();
+            Util.dbCloseConnectionJDBC();
         }
     }
 
     public void dropUsersTable() {
         String sql = "drop table if exists users";
-        Connection con = Util.dbOpenConnection();
+        Connection con = Util.dbOpenConnectionJDBC();
 
         try {
             Statement st = con.createStatement();
@@ -42,13 +42,13 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            Util.dbCloseConnection();
+            Util.dbCloseConnectionJDBC();
         }
     }
 
     public void saveUser(String name, String lastName, byte age) {
         String sql = "insert users (name, lastName, age) values (?, ?, ?)";
-        Connection con = Util.dbOpenConnection();
+        Connection con = Util.dbOpenConnectionJDBC();
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -59,13 +59,13 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            Util.dbCloseConnection();
+            Util.dbCloseConnectionJDBC();
         }
     }
 
     public void removeUserById(long id) {
         String sql = "delete from users where id=?";
-        Connection con = Util.dbOpenConnection();
+        Connection con = Util.dbOpenConnectionJDBC();
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -74,14 +74,14 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            Util.dbCloseConnection();
+            Util.dbCloseConnectionJDBC();
         }
     }
 
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
         String sql = "select * from users";
-        Connection con = Util.dbOpenConnection();
+        Connection con = Util.dbOpenConnectionJDBC();
 
         try {
             Statement st = con.createStatement();
@@ -97,14 +97,14 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            Util.dbCloseConnection();
+            Util.dbCloseConnectionJDBC();
         }
         return list;
     }
 
     public void cleanUsersTable() {
         String sql = "truncate users";
-        Connection con = Util.dbOpenConnection();
+        Connection con = Util.dbOpenConnectionJDBC();
 
         try {
             Statement st = con.createStatement();
@@ -112,7 +112,7 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            Util.dbCloseConnection();
+            Util.dbCloseConnectionJDBC();
         }
     }
 }
