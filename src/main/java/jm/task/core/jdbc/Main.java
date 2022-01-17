@@ -14,8 +14,8 @@ public class Main {
         uslmpl.saveUser("Андрей", "Кузичев",(byte) 48);
 
         uslmpl.getAllUsers();
-        // uslmpl.cleanUsersTable();
-        // uslmpl.dropUsersTable();
+        uslmpl.cleanUsersTable();
+        uslmpl.dropUsersTable();
 
 
 
