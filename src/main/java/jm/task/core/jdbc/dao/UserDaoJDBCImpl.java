@@ -10,7 +10,6 @@ import java.util.List;
 public class UserDaoJDBCImpl implements UserDao {
 
     public UserDaoJDBCImpl() {
-
     }
 
     public void createUsersTable() {
@@ -99,6 +98,7 @@ public class UserDaoJDBCImpl implements UserDao {
         } finally {
             Util.dbCloseConnectionJDBC();
         }
+
         return list;
     }
 
