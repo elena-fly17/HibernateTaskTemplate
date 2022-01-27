@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Util {
-    private static final String URL = "jdbc:mysql://localhost:3306/mydatabase1";
+    private static final String URL = "jdbc:mysql://localhost:3306/mydatabase1?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root17";
     private static Connection connection;

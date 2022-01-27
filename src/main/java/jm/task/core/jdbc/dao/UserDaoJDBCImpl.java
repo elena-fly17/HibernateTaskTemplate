@@ -19,72 +19,59 @@ public class UserDaoJDBCImpl implements UserDao {
                 "lastName varchar(45) not null, " +
                 "age tinyint not null, " +
                 "primary key(id))";
-        Connection con = Util.dbOpenConnectionJDBC();
 
-        try {
-            Statement st = con.createStatement();
+        try (Connection con = Util.dbOpenConnectionJDBC();
+                Statement st = con.createStatement()) {
             st.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            Util.dbCloseConnectionJDBC();
         }
     }
 
     public void dropUsersTable() {
         String sql = "drop table if exists users";
-        Connection con = Util.dbOpenConnectionJDBC();
 
-        try {
-            Statement st = con.createStatement();
+        try (Connection con = Util.dbOpenConnectionJDBC();
+             Statement st = con.createStatement()) {
             st.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            Util.dbCloseConnectionJDBC();
         }
     }
 
     public void saveUser(String name, String lastName, byte age) {
         String sql = "insert users (name, lastName, age) values (?, ?, ?)";
-        Connection con = Util.dbOpenConnectionJDBC();
 
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (Connection con = Util.dbOpenConnectionJDBC();
+             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, name);
             ps.setString(2, lastName);
             ps.setByte(3, age);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            Util.dbCloseConnectionJDBC();
         }
     }
 
     public void removeUserById(long id) {
         String sql = "delete from users where id=?";
-        Connection con = Util.dbOpenConnectionJDBC();
 
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
+        try (Connection con = Util.dbOpenConnectionJDBC();
+             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setLong(1, id);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            Util.dbCloseConnectionJDBC();
         }
     }
 
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
         String sql = "select * from users";
-        Connection con = Util.dbOpenConnectionJDBC();
 
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+        try (Connection con = Util.dbOpenConnectionJDBC();
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getLong("id"));
@@ -93,26 +80,20 @@ public class UserDaoJDBCImpl implements UserDao {
                 user.setAge(rs.getByte("age"));
                 list.add(user);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            Util.dbCloseConnectionJDBC();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-
         return list;
     }
 
     public void cleanUsersTable() {
         String sql = "truncate users";
-        Connection con = Util.dbOpenConnectionJDBC();
 
-        try {
-            Statement st = con.createStatement();
+        try (Connection con = Util.dbOpenConnectionJDBC();
+             Statement st = con.createStatement()) {
             st.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            Util.dbCloseConnectionJDBC();
         }
     }
 }
